@@ -56,7 +56,6 @@ def analyze_sentiment(text):
         "matched_words": found_words
     }
 
-
 texts = [
     "Этот сервис просто отличный",
     "Ужасный сервис",
