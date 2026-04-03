@@ -21,7 +21,15 @@ def lemmatize(word):
     return parsed.normal_form
 
 
+def save_results(results):
+    with open("results.csv", "w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["text", "sentiment", "score"])
+        writer.writeheader()
+        writer.writerows(results)
+
+
 def analyze_sentiment(text):
+
     words = re.findall(r'\w+', text.lower())
 
     score = 0
@@ -48,6 +56,7 @@ def analyze_sentiment(text):
         "matched_words": found_words
     }
 
+
 texts = [
     "Этот сервис просто отличный",
     "Ужасный сервис",
@@ -55,6 +64,16 @@ texts = [
     "Я очень люблю этот продукт"
 ]
 
+results = []
+
 for text in texts:
     result = analyze_sentiment(text)
     print(result)
+
+    results.append({
+        "text": result["text"],
+        "sentiment": result["sentiment"],
+        "score": result["score"]
+    })
+
+save_results(results)
